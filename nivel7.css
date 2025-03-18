@@ -1,0 +1,132 @@
+/* Fondo oscuro con cuadrícula animada */
+body {
+    background-color: #141414;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(50, 50, 50, 0.5) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(50, 50, 50, 0.5) 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: moveGrid 5s linear infinite;
+    z-index: -1;
+}
+
+@keyframes moveGrid {
+    from { background-position: 0 0; }
+    to { background-position: -50px -50px; }
+}
+
+/* Contenedor principal */
+.game-container {
+    text-align: center;
+    color: yellow;
+    font-family: 'Arial', sans-serif;
+    width: 700px; /* Ajustar según sea necesario */
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0px 0px 20px rgba(255, 255, 0, 0.5);
+}
+
+/* Estilo del reloj */
+#reloj {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+}
+
+/* Diseño de la cuadrícula */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* Ajustado a 4 columnas */
+    gap: 20px;
+    justify-content: center;
+    max-width: 500px;
+    margin: auto;
+}
+
+/* Estilos de la carta con animación de volteo */
+.card {
+    width: 110px;
+    height: 140px;
+    perspective: 1000px;
+    cursor: pointer;
+}
+
+.card-inner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.6s;
+}
+
+.card.volteada .card-inner {
+    transform: rotateY(180deg);
+}
+
+/* Parte frontal y trasera de la carta */
+.card-front, .card-back {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    backface-visibility: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+/* Parte trasera con emoji */
+.card-back {
+    background: linear-gradient(145deg, #333, #111);
+    color: yellow;
+    border: 2px solid yellow;
+    font-size: 2em;
+}
+
+/* Parte frontal con pregunta o respuesta */
+.card-front {
+    background: #FF5733;
+    transform: rotateY(180deg);
+    color: white;
+}
+
+/* Animación cuando se acierta */
+.card.acertada .card-front, .card.acertada .card-back {
+    background: #28a745 !important;
+    color: white !important;
+    border-color: white !important;
+}
+
+/* Botones */
+button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    border: 2px solid yellow;
+    background: transparent;
+    color: yellow;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background: yellow;
+    color: black;
+}
